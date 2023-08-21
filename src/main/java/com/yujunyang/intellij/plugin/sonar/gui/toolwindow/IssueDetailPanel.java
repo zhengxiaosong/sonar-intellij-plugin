@@ -40,7 +40,7 @@ import com.yujunyang.intellij.plugin.sonar.resources.ResourcesLoader;
 public class IssueDetailPanel extends JBPanel implements IssueClickListener, DuplicatedBlocksIssueClickListener {
     private Project project;
     private CardLayout layout;
-    private IssueCodePanel codePanel;
+    // private IssueCodePanel codePanel;
     private IssueDescriptionPanel descriptionPanel;
 
     public IssueDetailPanel(Project project) {
@@ -53,7 +53,8 @@ public class IssueDetailPanel extends JBPanel implements IssueClickListener, Dup
     @Override
     public void click(List<DuplicatedBlocksIssue> issues) {
         layout.show(this, "DETAIL");
-        codePanel.show(issues);
+        // 不在报告栏中展示代码模块
+        // codePanel.show(issues);
         descriptionPanel.show(issues);
         revalidate();
         repaint();
@@ -62,7 +63,8 @@ public class IssueDetailPanel extends JBPanel implements IssueClickListener, Dup
     @Override
     public void click(Issue issue) {
         layout.show(this, "DETAIL");
-        codePanel.show(Arrays.asList(issue));
+        // 不在报告栏中展示代码模块
+        // codePanel.show(Arrays.asList(issue));
         descriptionPanel.show(Arrays.asList(issue));
         revalidate();
         repaint();
@@ -77,17 +79,20 @@ public class IssueDetailPanel extends JBPanel implements IssueClickListener, Dup
         JBPanel detailPanel = new JBPanel(new BorderLayout());
         add("DETAIL", detailPanel);
 
-        OnePixelSplitter listAndCurrentSplitter = new OnePixelSplitter();
-        listAndCurrentSplitter.getDivider().setBackground(UIUtils.borderColor());
-        detailPanel.add(listAndCurrentSplitter, BorderLayout.CENTER);
+        // 不在报告栏中展示代码模块
+        // OnePixelSplitter listAndCurrentSplitter = new OnePixelSplitter();
+        // listAndCurrentSplitter.getDivider().setBackground(UIUtils.borderColor());
 
-        codePanel = new IssueCodePanel(project);
-        listAndCurrentSplitter.setFirstComponent(codePanel);
+        // detailPanel.add(listAndCurrentSplitter, BorderLayout.CENTER);
+
+        // codePanel = new IssueCodePanel(project);
+        // listAndCurrentSplitter.setFirstComponent(codePanel);
 
         descriptionPanel = new IssueDescriptionPanel(project);
-        listAndCurrentSplitter.setSecondComponent(descriptionPanel);
+        detailPanel.add(descriptionPanel, BorderLayout.CENTER);
+        // listAndCurrentSplitter.setSecondComponent(descriptionPanel);
 
-        listAndCurrentSplitter.setProportion(0.6f);
+        // listAndCurrentSplitter.setProportion(0.6f);
 
         layout.show(this, "EMPTY");
     }
